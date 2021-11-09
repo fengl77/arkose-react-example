@@ -1,5 +1,5 @@
 import React from "react";
-import { ArkoseLabsAccessibility, ArkoseLabsData } from "../../Types/ArkoseLabsTypes";
+import { ArkoseLabsAccessibility, ArkoseLabsData } from "../../types/ArkoseLabsTypes";
 
 type ArkoseLabsProps = {
   publicKey: string;
@@ -115,14 +115,13 @@ function ArkoseLabs(props: ArkoseLabsProps) {
   return (
     <div id={props.selector}></div>
   );
-
 }
 
  /**
  * Function that generates the script src value to load the Arkose Labs API
  * @param publicKey Public key provided by Arkose Labs
  * @param version Version number of the client API to use. Currently only v2 is available
- * @returns 
+ * @returns URL for the Arkose Labs Client API
  */
   const _generateArkoseLabsScriptSrc = (publicKey: string, version: string) => {
     return `https://${ARKOSE_LABS_HOSTNAME}/${version}/${publicKey}/${ARKOSE_LABS_API_SCRIPT_NAME}`;
@@ -132,7 +131,7 @@ function ArkoseLabs(props: ArkoseLabsProps) {
  * Function that checks if the Arkose Labs script has already been injected into the DOM
  * 
  * @param scriptId
- * @returns 
+ * @returns True if the scriptId is found within the DOM
  */
  export const isScriptInjected = (scriptId: string) => !!document.querySelector(`#${scriptId}`);
 
