@@ -41,66 +41,31 @@ function ArkoseLabs(props: ArkoseLabsProps) {
 
   const scriptParentElement = props.scriptProps.appendTo === 'body' ? document.body : document.getElementsByTagName('head')[0];
 
-  if (!isScriptInjected(ARKOSE_LABS_SETUP_SCRIPT_ID)) {
+    // Create a function that will be injected into the DOM in a script tag that will configure the Arkose Labs API
+    if (!isScriptInjected(ARKOSE_LABS_SETUP_SCRIPT_ID)) {
     const arkoseSetupScript = document.createElement('script');
 
     arkoseSetupScript.id = ARKOSE_LABS_SETUP_SCRIPT_ID;
     arkoseSetupScript.innerHTML = `function setupArkoseLabs(myEnforcement) { myEnforcement.setConfig({`;
     arkoseSetupScript.innerHTML += `onCompleted: ${props.onCompleted}`;
-
-    if (props.selector) {
-      arkoseSetupScript.innerHTML += `, selector: '#${props.selector}'`;  
-    }
-
-    if (props.language) {
-      arkoseSetupScript.innerHTML += `, language: '${props.language}'`;  
-    }
-
-    if (props.mode) {
-      arkoseSetupScript.innerHTML += `, mode: '${props.mode}'`;  
-    }
-
-    if (props.accessibility) {
-      arkoseSetupScript.innerHTML += `, accessibility: { '${props.accessibility.key}: '${props.accessibility.value}' }`;  
-    }
-
-    if (props.data) {
-      arkoseSetupScript.innerHTML += `, data: { '${props.data.key}': '${props.data.value}' }`;  
-    }
-
-    if (props.onReady) {
-      arkoseSetupScript.innerHTML += `, onReady: ${props.onReady}`;
-    }
-
-    if (props.onFailed) {
-      arkoseSetupScript.innerHTML += `, onFailed: ${props.onFailed}`;
-    }
-
-    if (props.onHide) {
-      arkoseSetupScript.innerHTML += `, onHide: ${props.onHide}`;
-    }
-
-    if (props.onShow) {
-      arkoseSetupScript.innerHTML += `, onShow: ${props.onShow}`;
-    }
-
-    if (props.onShown) {
-      arkoseSetupScript.innerHTML += `, onShown: ${props.onShown}`;
-    }
-
-    if (props.onSuppress) {
-      arkoseSetupScript.innerHTML += `, onSuppress: ${props.onSuppress}`;
-    }
-
-    if (props.onReset) {
-      arkoseSetupScript.innerHTML += `, onReset: ${props.onReset}`;
-    }
-
+    if (props.selector) { arkoseSetupScript.innerHTML += `, selector: '#${props.selector}'`; }
+    if (props.language) { arkoseSetupScript.innerHTML += `, language: '${props.language}'`; }
+    if (props.mode) { arkoseSetupScript.innerHTML += `, mode: '${props.mode}'`; }
+    if (props.accessibility) { arkoseSetupScript.innerHTML += `, accessibility: { '${props.accessibility.key}: '${props.accessibility.value}' }`; }
+    if (props.data) { arkoseSetupScript.innerHTML += `, data: { '${props.data.key}': '${props.data.value}' }`; }
+    if (props.onReady) { arkoseSetupScript.innerHTML += `, onReady: ${props.onReady}`; }
+    if (props.onFailed) { arkoseSetupScript.innerHTML += `, onFailed: ${props.onFailed}`; }
+    if (props.onHide) { arkoseSetupScript.innerHTML += `, onHide: ${props.onHide}`; }
+    if (props.onShow) { arkoseSetupScript.innerHTML += `, onShow: ${props.onShow}`; }
+    if (props.onShown) { arkoseSetupScript.innerHTML += `, onShown: ${props.onShown}`; }
+    if (props.onSuppress) { arkoseSetupScript.innerHTML += `, onSuppress: ${props.onSuppress}`; }
+    if (props.onReset) { arkoseSetupScript.innerHTML += `, onReset: ${props.onReset}`; }
     arkoseSetupScript.innerHTML += `});}`;
 
     scriptParentElement.appendChild(arkoseSetupScript);
   }
 
+  // Inject a script tag into the DOM that will load the Arkose Labs API
   if (!isScriptInjected(props.scriptProps.id || ARKOSE_LABS_API)) {
     const arkoseApiScriptSrc = _generateArkoseLabsScriptSrc(props.publicKey, ARKOSE_LABS_API_VERSION);
     const arkoseApiScript = document.createElement('script');
@@ -113,6 +78,8 @@ function ArkoseLabs(props: ArkoseLabsProps) {
   }
   
   return (
+    // This div is only displayed if the Arkose API is configured for inline mode in which case any challenge iframe that is displayed
+    // will be displayed in this div.
     <div id={props.selector}></div>
   );
 }
@@ -128,7 +95,7 @@ function ArkoseLabs(props: ArkoseLabsProps) {
   }
   
 /**
- * Function that checks if the Arkose Labs script has already been injected into the DOM
+ * Function that checks if the Arkose Labs script with the supplied ID has already be injected into the DOM
  * 
  * @param scriptId
  * @returns True if the scriptId is found within the DOM
