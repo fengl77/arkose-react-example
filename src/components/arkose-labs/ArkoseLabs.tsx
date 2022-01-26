@@ -1,5 +1,5 @@
 import React from "react";
-import { ArkoseLabsAccessibility, ArkoseLabsData } from "../../types/ArkoseLabsTypes";
+import { ArkoseLabsAccessibility, ArkoseLabsData } from "../../Types/ArkoseLabsTypes";
 
 type ArkoseLabsProps = {
   publicKey: string;
