@@ -3,8 +3,9 @@ import ArkoseLabs from "./Components/ArkoseLabs";
 import CallbackStatus from "./Components/CallbackStatus";
 
 const App = () => {
-  // State to hold the token returned by the Arkose Labs API
+  // State to hold the token or error response from the Arkose Labs API
   const [token, setToken] = useState("");
+  const [response, setResponse] = useState("");
 
   // State to identify when Arkose Callbacks have been called
   const [onReady, setOnReady] = useState(false);
@@ -14,6 +15,8 @@ const App = () => {
   const [onCompleted, setOnCompleted] = useState(false);
   const [onHide, setOnHide] = useState(false);
   const [onReset, setOnReset] = useState(false);
+  const [onError, setOnError] = useState(false);
+  const [onFailed, setOnFailed] = useState(false);
 
   // Create the setup function that the Arkose Labs API will use to configure it's use
   // and the callbacks that it will trigger
@@ -44,6 +47,14 @@ const App = () => {
       onHide: () => {
         setOnHide(true);
       },
+      onError: (response) => {
+        setOnError(true);
+        setResponse(response);
+      },
+      onFailed: (response) => {
+        setOnFailed(true);
+        setResponse(response);
+      }
     });
   }
 
@@ -61,6 +72,8 @@ const App = () => {
     setOnCompleted(false);
     setOnHide(false);
     setOnReset(false);
+    setOnError(false);
+    setOnFailed(false);
   };
 
   return (
@@ -85,13 +98,29 @@ const App = () => {
         onCompleted={onCompleted}
         onReset={onReset}
         onHide={onHide}
+        onError={onError}
+        onFailed={onFailed}
       />
-      <div className="row">
-        <h3 className="text-center my-3">Arkose Labs Token</h3>
-      </div>
-      <div className="row justify-content-center">
-        <p className="col-6">{token}</p>
-      </div>
+      {onCompleted ? (
+        <div>
+          <div className="row">
+            <h3 className="text-center my-3">Arkose Labs Token</h3>
+          </div>
+          <div className="row justify-content-center">
+            <p className="col-6">{token}</p>
+          </div>
+        </div>
+      ) : null}
+      {onError || onFailed ? (
+        <div>
+          <div className="row">
+            <h3 className="text-center my-3">Arkose Response</h3>
+          </div>
+          <div className="row justify-content-center">
+            <p className="col-6">{response}</p>
+          </div>
+        </div>
+      ) : null}
       <div className="row justify-content-center">
         <ArkoseLabs privateKey={"11111111-1111-1111-1111-111111111111"} />
       </div>

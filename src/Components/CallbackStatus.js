@@ -51,6 +51,22 @@ const CallbackStatus = (props) => {
           <p className="col-1"></p>
         )}
       </div>
+      <div className="row justify-content-center">
+        <p className="col-2">onError</p>
+        {props.onError ? (
+          <p className="col-1">✅</p>
+        ) : (
+          <p className="col-1"></p>
+        )}
+      </div>
+      <div className="row justify-content-center">
+        <p className="col-2">onFailed</p>
+        {props.onFailed ? (
+          <p className="col-1">✅</p>
+        ) : (
+          <p className="col-1"></p>
+        )}
+      </div>
     </div>
   );
 };
