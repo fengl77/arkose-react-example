@@ -18,13 +18,13 @@ const ArkoseLabs = (props) => {
 
     return () => {
       const object = document.getElementById("arkose-script");
-      object.remote();
+      object.remove();
     };
   }
 
   // We only want to have the API script tag created once
   useEffect(() => {
-    createArkoseScript(props);
+    return createArkoseScript(props);
     // eslint-disable-next-line
   }, []);
 
