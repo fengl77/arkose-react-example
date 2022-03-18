@@ -1,11 +1,11 @@
-import { useState } from "react";
-import ArkoseLabs from "./Components/ArkoseLabs";
-import CallbackStatus from "./Components/CallbackStatus";
+import { useState } from 'react';
+import ArkoseLabs from './Components/ArkoseLabs';
+import CallbackStatus from './Components/CallbackStatus';
 
 const App = () => {
   // State to hold the token or error response from the Arkose Labs API
-  const [token, setToken] = useState("");
-  const [response, setResponse] = useState("");
+  const [token, setToken] = useState('');
+  const [response, setResponse] = useState('');
 
   // State to identify when Arkose Callbacks have been called
   const [onReady, setOnReady] = useState(false);
@@ -23,8 +23,8 @@ const App = () => {
   function setupEnforcement(enforcementObject) {
     window.Arkose = enforcementObject;
     window.Arkose.setConfig({
-      selector: "#arkose-ec",
-      mode: "modal",
+      selector: '#arkose-ec',
+      mode: 'modal',
       onReady: () => {
         setOnReady(true);
       },
@@ -54,7 +54,7 @@ const App = () => {
       onFailed: (response) => {
         setOnFailed(true);
         setResponse(response);
-      }
+      },
     });
   }
 
@@ -77,18 +77,18 @@ const App = () => {
   };
 
   return (
-    <div className="container">
-      <div className="row justify-content-center">
+    <div className='container'>
+      <div className='row justify-content-center'>
         <button
-          id="arkose-ec"
-          className="btn btn-primary col-2 my-5"
+          id='arkose-ec'
+          className='btn btn-primary col-2 my-5'
           onClick={handleOnClick}
         >
           Run Arkose
         </button>
       </div>
-      <div className="row">
-        <h3 className="text-center my-3">Callback Status</h3>
+      <div className='row'>
+        <h3 className='text-center my-3'>Callback Status</h3>
       </div>
       <CallbackStatus
         onReady={onReady}
@@ -103,26 +103,26 @@ const App = () => {
       />
       {onCompleted ? (
         <div>
-          <div className="row">
-            <h3 className="text-center my-3">Arkose Labs Token</h3>
+          <div className='row'>
+            <h3 className='text-center my-3'>Arkose Labs Token</h3>
           </div>
-          <div className="row justify-content-center">
-            <p className="col-6">{token}</p>
+          <div className='row justify-content-center'>
+            <p className='col-6'>{token}</p>
           </div>
         </div>
       ) : null}
       {onError || onFailed ? (
         <div>
-          <div className="row">
-            <h3 className="text-center my-3">Arkose Response</h3>
+          <div className='row'>
+            <h3 className='text-center my-3'>Arkose Response</h3>
           </div>
-          <div className="row justify-content-center">
-            <p className="col-6">{response}</p>
+          <div className='row justify-content-center'>
+            <p className='col-6'>{response}</p>
           </div>
         </div>
       ) : null}
-      <div className="row justify-content-center">
-        <ArkoseLabs privateKey={"11111111-1111-1111-1111-111111111111"} />
+      <div className='row justify-content-center'>
+        <ArkoseLabs publicKey={'11111111-1111-1111-1111-111111111111'} />
       </div>
     </div>
   );

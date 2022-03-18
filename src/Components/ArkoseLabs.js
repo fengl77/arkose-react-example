@@ -8,7 +8,7 @@ const ArkoseLabs = (props) => {
     const script = document.createElement("script");
     script.type = "text/javascript";
     script.src =
-      "https://client-api.arkoselabs.com/v2/" + props.privateKey + "/api.js";
+      "https://client-api.arkoselabs.com/v2/" + props.publicKey + "/api.js";
     script.setAttribute("data-callback", "setupEnforcement");
     script.async = true;
     script.defer = true;
