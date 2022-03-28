@@ -21,8 +21,7 @@ const App = () => {
   // Create the setup function that the Arkose Labs API will use to configure it's use
   // and the callbacks that it will trigger
   function setupEnforcement(enforcementObject) {
-    window.Arkose = enforcementObject;
-    window.Arkose.setConfig({
+    enforcementObject.setConfig({
       selector: '#arkose-ec',
       mode: 'modal',
       onReady: () => {

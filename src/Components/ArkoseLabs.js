@@ -1,23 +1,21 @@
-import React from "react";
-import { useEffect } from "react";
+import React from 'react';
+import { useEffect } from 'react';
 
 const ArkoseLabs = (props) => {
-  window.Arkose = {};
-
   function createArkoseScript(props) {
-    const script = document.createElement("script");
-    script.type = "text/javascript";
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
     script.src =
-      "https://client-api.arkoselabs.com/v2/" + props.publicKey + "/api.js";
-    script.setAttribute("data-callback", "setupEnforcement");
+      'https://client-api.arkoselabs.com/v2/' + props.publicKey + '/api.js';
+    script.setAttribute('data-callback', 'setupEnforcement');
     script.async = true;
     script.defer = true;
-    script.id = "arkose-script";
+    script.id = 'arkose-script';
 
     document.head.append(script);
 
     return () => {
-      const object = document.getElementById("arkose-script");
+      const object = document.getElementById('arkose-script');
       object.remove();
     };
   }
@@ -28,7 +26,7 @@ const ArkoseLabs = (props) => {
     // eslint-disable-next-line
   }, []);
 
-  return <div id="arkose-ec"></div>;
+  return <div id='arkose-ec'></div>;
 };
 
 export default ArkoseLabs;
